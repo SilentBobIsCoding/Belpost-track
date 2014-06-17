@@ -1,0 +1,20 @@
+<div  {{data 'parcel'}} class="item {{status}}" id="item_{{id}}">
+    <div>
+        <span class="item-description">{{description}}</span>
+        <a href="http://search.belpost.by/#{{number}}" target="_blank" class="item-number">{{number}}</a>
+        <div class="recent-event">{{recentEvent}}</div>
+        <div class="loading-mask" style="display: none;">
+            <div>
+                <div class="loading-mask-block loading-mask-block1"></div>
+                <div class="loading-mask-block loading-mask-block2"></div>
+                <div class="loading-mask-block loading-mask-block3"></div>
+            </div>
+        </div>
+    </div>
+    <div class="item-actions">
+        <div class="item-action action-delete">&nbsp;</div>
+        <div class="item-action action-update ">&nbsp;</div>
+        <div class="item-action action-viewed">&nbsp;</div>
+        <div style="clear: both"></div>
+    </div>
+</div>

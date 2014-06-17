@@ -1,0 +1,22 @@
+<header id="toolbar">
+    <div class="timestamp">
+        <span>Last updated: </span><span id="timeStamp">{{timeStamp}}</span>
+    </div>
+
+    <div class="toolbar-buttons">
+        <div class="toolbar-button reload-events">&nbsp;</div>
+        <div class="toolbar-button add-track">&nbsp;</div>
+    </div>
+
+    <button style="display: none" id="clearEvents">Clear All Events</button>
+
+</header>
+
+<section class="add-new-track-panel" style="display: none;">
+    <input type="text" class="parcel-number" placeholder="Track Number" value="{{number}}">
+    <br/>
+    <input type="text" class="parcel-description" placeholder="Description" value="{{description}}">
+    <br/>
+    <input type="button" value="OK">
+    <input type="button" value="Cancel">
+</section>
