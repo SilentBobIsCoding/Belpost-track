@@ -1,51 +1,57 @@
-var PARCELS = [
-    {
-        "id": 0,
-        "recentEvent": "blue",
-        "number": "+1 (819) 538-2841",
-        "description": "Tourmania"
-    },
-    {
-        "id": 1,
-        "recentEvent": "blue",
-        "number": "+1 (818) 479-2284",
-        "description": "Macronaut"
-    },
-    {
-        "id": 2,
-        "recentEvent": "brown",
-        "number": "+1 (964) 413-3988",
-        "description": "Opticall"
-    },
-    {
-        "id": 3,
-        "recentEvent": "blue",
-        "number": "+1 (812) 588-2386",
-        "description": "Combogene"
-    },
-    {
-        "id": 4,
-        "recentEvent": "brown",
-        "number": "+1 (985) 404-2842",
-        "description": "Arctiq"
-    }
-];
-
-
 BP.model.Parcel = can.Model.extend({
         findAll: function () {
-            return $.Deferred().resolve(PARCELS);
+            return $.Deferred().resolve(this._getParcels());
         },
         findOne: function (params) {
-            return $.Deferred().resolve(PARCELS[(+params.id) - 1]);
+            var id = params ? params.id : undefined;
+            return $.Deferred().resolve(this._getParcelById(id));
         },
-        update: function (id, attrs) {
-            // update PARCELS with the new attrs
-            $.extend(PARCELS[id - 1], attrs);
-            return $.Deferred().resolve()
+        create: function (parcel) {
+            parcel.id = this._getId();
+            this._getParcels().push(parcel);
+
+            return $.Deferred().resolve({id: parcel.id});
+        },
+        update: function (id, parcel) {
+            var existing = this._getParcelById(id);
+            if (existing) {
+                existing.number = parcel.number;
+                existing.description = parcel.description;
+                existing.recentEvent = parcel.recentEvent;
+                this._sync();
+            }
+
+            return $.Deferred().resolve();
         },
         destroy: function () {
+            debugger
             return $.Deferred().resolve()
+        },
+        _data: null,
+        _getParcels: function () {
+            if (!this._data) {
+                var items = localStorage['tracks'];
+                this._data = items ? JSON.parse(items) : [];
+            }
+            return this._data;
+        },
+        _getParcelById: function (id) {
+            var all = this._getParcels();
+            var parcel;
+            for (var i = all.length; i--;) {
+                if (all[i].id === id) {
+                    parcel = all[i];
+                    break;
+                }
+            }
+            return parcel;
+        },
+        _sync: function () {
+            localStorage['tracks'] = JSON.stringify(this._getParcels());
+        },
+        _getId: function () {
+            var all = this._getParcels();
+            return (all.length ? all[all.length - 1].id : 0) + 1;
         }
     },
 {});
