@@ -9,6 +9,7 @@ BP.model.Parcel = can.Model.extend({
         create: function (parcel) {
             parcel.id = this._getId();
             this._getParcels().push(parcel);
+            this._sync();
 
             return $.Deferred().resolve({id: parcel.id});
         },
@@ -23,9 +24,15 @@ BP.model.Parcel = can.Model.extend({
 
             return $.Deferred().resolve();
         },
-        destroy: function () {
-            debugger
-            return $.Deferred().resolve()
+        destroy: function (id) {
+            var parcel = this._getParcelById(id);
+            var all = this._getParcels();
+            var index = all.indexOf(parcel);
+            all.splice(index, 1);
+            console.log('delete: uncomment sync');
+            this._sync();
+
+            return $.Deferred().resolve();
         },
         _data: null,
         _getParcels: function () {

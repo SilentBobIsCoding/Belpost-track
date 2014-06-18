@@ -29,7 +29,15 @@ BP.control.Toolbar = can.Control.extend({}, {
         this.description.val(parcel.description);
     },
     '.add-track click': function () {
-
+        var parcel = new BP.model.Parcel({
+            number: '',
+            description: ''
+        });
+        var that = this;
+        parcel.bind('created', function () {
+            that.element.trigger('add', parcel);
+        });
+        this.parcel(parcel);
     },
     'input change': function () {
         var parcel = this.options.parcel;
@@ -48,14 +56,19 @@ BP.control.Toolbar = can.Control.extend({}, {
     },
 
     submitEdit: function () {
+        this.editor.hide();
         this.options.parcel.save();
     },
 
     cancelEdit: function () {
         var parcel = this.options.parcel;
-        parcel.attr('number',this.editing.number);
-        parcel.attr('description', this.editing.description);
         this.editor.hide();
-    }
 
+        if (parcel.isNew()) {
+            parcel.destroy();
+        } else {
+            parcel.attr('number',this.editing.number);
+            parcel.attr('description', this.editing.description);
+        }
+    }
 });
