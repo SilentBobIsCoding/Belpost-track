@@ -33,11 +33,16 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="parcels.js" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="parcels.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/script/controls/parcels.js">
           <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
             <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="528">
               <caret line="19" column="50" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
+=======
+            <state vertical-scroll-proportion="0.51931995" vertical-offset="0" max-vertical-offset="647">
+              <caret line="21" column="18" selection-start-line="21" selection-start-column="18" selection-end-line="21" selection-end-column="18" />
+>>>>>>> 06c80ebf6ce3fe0c47ecb67aaa4620540bbeec52
               <folding />
             </state>
           </provider>
@@ -145,12 +150,16 @@
         <option value="$PROJECT_DIR$/script/controls/editor.js" />
         <option value="$PROJECT_DIR$/template/editor.mustache" />
         <option value="$PROJECT_DIR$/popup.html" />
-        <option value="$PROJECT_DIR$/script/controls/parcels.js" />
         <option value="$PROJECT_DIR$/script/popup.js" />
         <option value="$PROJECT_DIR$/script/models/newmodel.js" />
         <option value="$PROJECT_DIR$/script/models/parcel.js" />
         <option value="$PROJECT_DIR$/template/toolbar.mustache" />
         <option value="$PROJECT_DIR$/script/controls/toolbar.js" />
+<<<<<<< HEAD
+=======
+        <option value="$PROJECT_DIR$/script/models/newmodel.js" />
+        <option value="$PROJECT_DIR$/script/controls/parcels.js" />
+>>>>>>> 06c80ebf6ce3fe0c47ecb67aaa4620540bbeec52
       </list>
     </option>
   </component>
@@ -559,6 +568,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/template/toolbar.mustache">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
         <state vertical-scroll-proportion="-4.6666665" vertical-offset="0" max-vertical-offset="416">
           <caret line="7" column="44" selection-start-line="7" selection-start-column="35" selection-end-line="7" selection-end-column="44" />
           <folding />
@@ -569,6 +579,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.11248074" vertical-offset="407" max-vertical-offset="1056">
           <caret line="30" column="43" selection-start-line="30" selection-start-column="37" selection-end-line="30" selection-end-column="37" />
+=======
+        <state vertical-scroll-proportion="0.51931995" vertical-offset="0" max-vertical-offset="647">
+          <caret line="21" column="18" selection-start-line="21" selection-start-column="18" selection-end-line="21" selection-end-column="18" />
+>>>>>>> 06c80ebf6ce3fe0c47ecb67aaa4620540bbeec52
           <folding />
         </state>
       </provider>
