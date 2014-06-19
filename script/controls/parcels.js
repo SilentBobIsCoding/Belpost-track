@@ -6,8 +6,7 @@ BP.control.Parcels = can.Control.extend({}, {
         this.model.findAll({}, function (parcels) {
             that.element.html(can.view('template/parcelList.mustache', {parcels: parcels}, {
                 dateFormatter: function (compute) {
-                    var date = compute();
-                    return date instanceof Date ? [date.getDate(), date.getMonth() + 1, date.getYear() - 100].join('.') : date;
+                    return BP.utils.dateFormatter(compute());
                 }
             }));
             that.parcels = parcels;

@@ -7,7 +7,7 @@ BP.control.Toolbar = can.Control.extend({}, {
         can.view('template/toolbar.mustache', {}, function (frag) {
             el.html(frag);
 
-            var editor = el.find('.add-new-track-panel');
+            var editor = el.find('.editor-panel');
             that.number = editor.find('.parcel-number');
             that.description = editor.find('.parcel-description');
             that.editor = editor;

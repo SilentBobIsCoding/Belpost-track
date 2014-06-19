@@ -62,35 +62,35 @@ a:hover {
     background: url("../images/add.png") center no-repeat !important;
 }
 
-.add-new-track-panel{
+.editor-panel{
     padding: 5px;
     border: 1px solid #d5dab8;
     background-color: #e9eecb;
     border-radius: 5px;
 }
 
-.add-new-track-panel input {
+.editor-panel input {
     border-radius: 5px;
     border: 1px solid #ccc;
     outline: 0;
     -webkit-appearance: none;
 }
 
-.add-new-track-panel input[type="text"] {
+.editor-panel input[type="text"] {
     width: 50%;
     padding: 4px 7px;
 }
 
-.add-new-track-panel input[type="text"]:focus {
+.editor-panel input[type="text"]:focus {
     border-color: #B9C010;
 }
 
-.add-new-track-panel input[type="button"]{
+.editor-panel input[type="button"]{
     width: 60px;
     margin-right: 5px;
 }
 
-.add-new-track-panel input[type="button"]:hover{
+.editor-panel input[type="button"]:hover{
     background-color: #e0e0e0;
 }
 
@@ -109,6 +109,7 @@ a:hover {
 
 .item > div:first-child {
     display: inline-block;
+    padding: 5px 0;
 }
 
 .item:hover {
@@ -180,8 +181,6 @@ a:hover {
 .status-updated {
     box-shadow: 0px 0px 5px #69B7FF;
 }
-
-
 
 .loading-indicator {
 }

@@ -4,7 +4,8 @@
 window.BP = {
     model: {},
     control: {},
-    tracker: {}
+    tracker: {},
+    utils: {}
 };
 
 $(function () {
