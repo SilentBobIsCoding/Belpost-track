@@ -39,6 +39,9 @@ BP.control.Toolbar = can.Control.extend({}, {
         });
         this.parcel(parcel);
     },
+    '.reload-events click': function () {
+        this.element.trigger('refresh');
+    },
     'input change': function () {
         var parcel = this.options.parcel;
         parcel.attr('number', this.number.val());

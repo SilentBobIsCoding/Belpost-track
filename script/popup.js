@@ -3,7 +3,8 @@
  */
 window.BP = {
     model: {},
-    control: {}
+    control: {},
+    tracker: {}
 };
 
 $(function () {
@@ -13,6 +14,7 @@ $(function () {
         init: function (el) {
             this.toolbar = new BP.control.Toolbar('#header');
             this.toolbar.element.bind('add', can.proxy(this.addParcel, this));
+            this.toolbar.element.bind('refresh', can.proxy(this.refreshAll, this));
             this.parcels = new BP.control.Parcels('#list');
             this.parcels.element.bind('update', can.proxy(this.editParcel, this));
 
@@ -22,6 +24,9 @@ $(function () {
         },
         editParcel: function (e, parcel) {
             this.toolbar.parcel(parcel);
+        },
+        refreshAll: function () {
+            this.parcels.refreshAll();
         }
     });
 

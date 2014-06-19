@@ -4,7 +4,12 @@ BP.control.Parcels = can.Control.extend({}, {
         var that = this;
 
         this.model.findAll({}, function (parcels) {
-            that.element.html(can.view('template/parcelList.mustache', {parcels: parcels}));
+            that.element.html(can.view('template/parcelList.mustache', {parcels: parcels}, {
+                dateFormatter: function (compute) {
+                    var date = compute();
+                    return date instanceof Date ? [date.getDate(), date.getMonth() + 1, date.getYear() - 100].join('.') : date;
+                }
+            }));
             that.parcels = parcels;
         });
 
@@ -14,13 +19,9 @@ BP.control.Parcels = can.Control.extend({}, {
         var action;
         if (el.hasClass('action-delete')) {
             this.deleteParcel(parcel);
-        } else if (el.hasClass('action-update')) {
-            action = 'refresh';
         } else if (el.hasClass('action-viewed')) {
             this.element.trigger('update', parcel);
         }
-
-        console.log(action);
     },
 
     addParcel: function (parcel) {
@@ -29,5 +30,31 @@ BP.control.Parcels = can.Control.extend({}, {
 
     deleteParcel: function (parcel) {
         parcel.destroy();
+    },
+
+    refreshAll: function () {
+        var counter = this.parcels.length;
+
+        this.parcels.each(function (parcel) {
+            BP.model.Parcel.service.getTrackingData(
+                parcel.attr('number'),
+                function (errorCode, data) {
+                    counter--;
+                    if (errorCode !== BP.tracker.TrackingService.ERROR_CODES.success) {
+                        return;
+                    }
+
+
+                    var events = data.insideTrack || data.outsideTrack;
+                    var recentEvent;
+                    if (events.length) {
+                        recentEvent = events[events.length - 1];
+                        parcel.attr('recentEvent', recentEvent);
+                        parcel.save();
+                    }
+                },
+                this
+            );
+        });
     }
 });
