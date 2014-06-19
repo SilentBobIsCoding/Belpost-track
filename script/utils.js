@@ -7,7 +7,6 @@ BP.utils.dateFormatter = function (date) {
         });
         res = parts.join('.');
     }
-    1
 
     return res;
 };
