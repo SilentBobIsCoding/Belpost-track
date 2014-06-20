@@ -39,7 +39,7 @@ BP.control.Toolbar = can.Control.extend({}, {
         });
         this.parcel(parcel);
     },
-    '.reload-events click': function () {
+    '.refresh-parcels click': function () {
         this.element.trigger('refresh');
     },
     'input change': function () {
@@ -72,6 +72,18 @@ BP.control.Toolbar = can.Control.extend({}, {
         } else {
             parcel.attr('number',this.editing.number);
             parcel.attr('description', this.editing.description);
+        }
+    },
+
+    setLoadingMask: function (maskVisible) {
+        var mask = this.element.find('.loading-indicator');
+        var refreshButton = this.element.find('.refresh-parcels');
+        if (maskVisible) {
+            refreshButton.hide();
+            mask.show();
+        } else {
+            mask.hide();
+            refreshButton.show();
         }
     }
 });

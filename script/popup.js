@@ -9,7 +9,6 @@ window.BP = {
 };
 
 $(function () {
-
     var Main = can.Control.extend({}, {
         model: BP.model.Parcel,
         init: function (el) {
@@ -27,7 +26,11 @@ $(function () {
             this.toolbar.parcel(parcel);
         },
         refreshAll: function () {
-            this.parcels.refreshAll();
+            var toolbar = this.toolbar;
+            toolbar.setLoadingMask(true);
+            this.parcels.refreshAll().then(function () {
+                toolbar.setLoadingMask(false);
+            });
         }
     });
 

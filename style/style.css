@@ -39,6 +39,7 @@ a:hover {
     text-align: right;
 }
 
+.loading-indicator,
 .toolbar-button {
     width: 20px;
     line-height: 20px;
@@ -54,7 +55,7 @@ a:hover {
     -webkit-animation-timing-function: easy-out;
 }
 
-.reload-events {
+.refresh-parcels {
     background: url("../images/update_all.png") center no-repeat !important;
 }
 
@@ -174,8 +175,8 @@ a:hover {
     background: url("../images/update.png") center no-repeat !important;
 }
 
-.action-viewed {
-    background: url("../images/viewed.png") center no-repeat !important;
+.action-edit {
+    background: url("../images/edit.png") center no-repeat !important;
 }
 
 .status-updated {
@@ -183,16 +184,7 @@ a:hover {
 }
 
 .loading-indicator {
-}
-
-.loading-mask {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    opacity: 0.7;
-    background-color: #ffffff;
+    background: url('../images/loader.gif') center no-repeat;
 }
 
 .item-action:hover {
@@ -215,72 +207,3 @@ a:hover {
         -webkit-transform: rotate(0deg);
     }
 }
-
-
-
-
-.loading-mask > div:first-child {
-    width:40px;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 15px;
-}
-
-.loading-mask-block {
-    background-color:#A1C0C4;
-    border:1px solid #1882DE;
-    float:left;
-    height:28px;
-    margin-left:2px;
-    width:7px;
-    opacity:0.1;
-    -webkit-animation-name:bounceG;
-    -webkit-animation-duration:0.8s;
-    -webkit-animation-iteration-count:infinite;
-    -webkit-animation-direction:linear;
-    -webkit-transform:scale(0.7);
-    animation-name:bounceG;
-    animation-duration:0.8s;
-    animation-iteration-count:infinite;
-    animation-direction:linear;
-    transform:scale(0.7);
-}
-
-.loading-mask-block1 {
-    -webkit-animation-delay:0.24000000000000005s;
-    animation-delay:0.24000000000000005s;
-}
-
-.loading-mask-block2 {
-    -webkit-animation-delay:0.32s;
-    animation-delay:0.32s;
-}
-
-.loading-mask-block3 {
-    -webkit-animation-delay:0.4s;
-    animation-delay:0.4s;
-}
-
-@-webkit-keyframes bounceG{
-    0%{
-        -webkit-transform:scale(1.2);
-        opacity:1}
-
-    100%{
-        -webkit-transform:scale(0.7);
-        opacity:0.1}
-
-}
-
-@keyframes bounceG{
-    0%{
-        transform:scale(1.2);
-        opacity:1}
-
-    100%{
-        transform:scale(0.7);
-        opacity:0.1}
-
-}
-
-

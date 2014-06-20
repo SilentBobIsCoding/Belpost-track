@@ -18,7 +18,7 @@ BP.control.Parcels = can.Control.extend({}, {
         var action;
         if (el.hasClass('action-delete')) {
             this.deleteParcel(parcel);
-        } else if (el.hasClass('action-viewed')) {
+        } else if (el.hasClass('action-edit')) {
             this.element.trigger('update', parcel);
         }
     },
@@ -32,6 +32,7 @@ BP.control.Parcels = can.Control.extend({}, {
     },
 
     refreshAll: function () {
+        var deferred = new can.Deferred();
         var counter = this.parcels.length;
 
         this.parcels.each(function (parcel) {
@@ -51,9 +52,14 @@ BP.control.Parcels = can.Control.extend({}, {
                         parcel.attr('recentEvent', recentEvent);
                         parcel.save();
                     }
+                    if (counter === 0) {
+                        deferred.resolve();
+                    }
                 },
                 this
             );
         });
+
+        return deferred;
     }
 });
