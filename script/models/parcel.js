@@ -68,4 +68,8 @@ BP.model.Parcel = can.Model.extend({
         var all = this._getParcels();
         return (all.length ? all[all.length - 1].id : 0) + 1;
     }
-}, {});
+}, {
+    isValid: function () {
+        return !!(this.attr('number') && this.attr('description'));
+    }
+});

@@ -1,18 +1,16 @@
 <header id="toolbar">
-    <div class="timestamp">
-        <span>Last updated: </span><span id="timeStamp">{{timeStamp}}</span>
-    </div>
-
     <div class="toolbar-buttons">
-        <div class="toolbar-button loading-indicator" style="display: none;">&nbsp;</div>
+        <div class="loading-indicator" style="display: none;">&nbsp;</div>
         <div class="toolbar-button refresh-parcels">&nbsp;</div>
-        <div class="toolbar-button add-track">&nbsp;</div>
+        <div class="toolbar-button add-parcel">&nbsp;</div>
+        <div class="toolbar-button submit-parcel">&nbsp;submit</div>
+        <div class="toolbar-button cancel-parcel">&nbsp;cancel</div>
     </div>
+    <section class="editor-panel" style="display: none;">
+        <input type="text" class="parcel-number" placeholder="Track Number" value="{{number}}">
+        <br/>
+        <input type="text" class="parcel-description" placeholder="Description" value="{{description}}">
+        <br/>
+    </section>
 </header>
 
-<section class="editor-panel" style="display: none;">
-    <input type="text" class="parcel-number" placeholder="Track Number" value="{{number}}">
-    <br/>
-    <input type="text" class="parcel-description" placeholder="Description" value="{{description}}">
-    <br/>
-</section>

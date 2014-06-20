@@ -17,29 +17,16 @@ a:hover {
 #toolbar {
     padding: 5px;
     background-color: #d6e5e5;
-    height: 24px;
+    /*height: 24px;*/
     vertical-align: top;
     font-size: 11px;
     border-radius: 5px;
 }
 
-#toolbar .timestamp {
-    display: inline-block;
-    width: 70%;
-}
-
-#timeStamp {
-    color: #1f1b7f;
-    /*font-weight: bold;*/
-}
-
 #toolbar .toolbar-buttons {
     display: inline-block;
-    width: 29%;
-    text-align: right;
 }
 
-.loading-indicator,
 .toolbar-button {
     width: 20px;
     line-height: 20px;
@@ -59,14 +46,15 @@ a:hover {
     background: url("../images/update_all.png") center no-repeat !important;
 }
 
-.add-track {
+.add-parcel {
     background: url("../images/add.png") center no-repeat !important;
 }
 
 .editor-panel{
-    padding: 5px;
-    border: 1px solid #d5dab8;
-    background-color: #e9eecb;
+    margin-top: 5px;
+    /*padding: 5px;*/
+    /*border: 1px solid #d5dab8;*/
+    /*background-color: #e9eecb;*/
     border-radius: 5px;
 }
 
@@ -78,12 +66,12 @@ a:hover {
 }
 
 .editor-panel input[type="text"] {
-    width: 50%;
+    width: 100%;
     padding: 4px 7px;
 }
 
 .editor-panel input[type="text"]:focus {
-    border-color: #B9C010;
+    border-color: #BCCDF3;
 }
 
 .editor-panel input[type="button"]{
@@ -184,6 +172,11 @@ a:hover {
 }
 
 .loading-indicator {
+    width: 20px;
+    line-height: 20px;
+    border-radius: 3px;
+    /*border: 1px solid #ccc;*/
+    display: inline-block;
     background: url('../images/loader.gif') center no-repeat;
 }
 

@@ -11,13 +11,13 @@ BP.control.Toolbar = can.Control.extend({}, {
             that.number = editor.find('.parcel-number');
             that.description = editor.find('.parcel-description');
             that.editor = editor;
+            that.setEditActions(false);
         });
     },
 
     parcel: function (parcel) {
         this.options.parcel = parcel;
         this.editing = can.extend({}, parcel._data);
-
         this.on();
         this.setValues();
         this.editor.show();
@@ -28,7 +28,13 @@ BP.control.Toolbar = can.Control.extend({}, {
         this.number.val(parcel.number);
         this.description.val(parcel.description);
     },
-    '.add-track click': function () {
+    '.add-parcel click': function () {
+        if (this.editing) {
+            return;
+        }
+
+        this.setEditActions(true);
+
         var parcel = new BP.model.Parcel({
             number: '',
             description: ''
@@ -41,6 +47,12 @@ BP.control.Toolbar = can.Control.extend({}, {
     },
     '.refresh-parcels click': function () {
         this.element.trigger('refresh');
+    },
+    '.submit-parcel click': function () {
+        this.submitEdit(false);
+    },
+    '.cancel-parcel click': function () {
+        this.submitEdit(false);
     },
     'input change': function () {
         var parcel = this.options.parcel;
@@ -59,11 +71,18 @@ BP.control.Toolbar = can.Control.extend({}, {
     },
 
     submitEdit: function () {
+        if (!this.options.parcel.isValid()) {
+            this.cancelEdit();
+            return;
+        }
         this.editor.hide();
         this.options.parcel.save();
+        this.setEditActions(false);
+        delete this.editing;
     },
 
     cancelEdit: function () {
+        this.setEditActions(false);
         var parcel = this.options.parcel;
         this.editor.hide();
 
@@ -73,6 +92,7 @@ BP.control.Toolbar = can.Control.extend({}, {
             parcel.attr('number',this.editing.number);
             parcel.attr('description', this.editing.description);
         }
+        delete this.editing;
     },
 
     setLoadingMask: function (maskVisible) {
@@ -85,5 +105,9 @@ BP.control.Toolbar = can.Control.extend({}, {
             mask.hide();
             refreshButton.show();
         }
+    },
+    setEditActions: function (editActive) {
+        this.element.find('.toolbar-button').hide();
+        this.element.find(editActive ? '.submit-parcel, .cancel-parcel' : '.refresh-parcels, .add-parcel').show();
     }
 });
