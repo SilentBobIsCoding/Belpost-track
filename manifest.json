@@ -1,0 +1,32 @@
+{
+    "manifest_version": 2,
+
+    "name": "Belpost tracking",
+    "description": "Tracks orders using Belpost web service",
+    "version": "1.2",
+    "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
+
+    "background" : {
+        "scripts" : [
+            "lib/zepto.js",
+            "lib/zepto.callbacks.js",
+            "lib/zepto.deferred.js",
+            "lib/can.js",
+            "script/ns.js",
+            "script/utils.js",
+            "script/tracker/trackingService.js",
+            "script/models/parcel.js",
+            "script/tracker/backgroundWorker.js"
+        ]
+    },
+
+    "browser_action": {
+        "default_icon": "images/icon.png",
+        "default_popup": "popup.html"
+    },
+
+    "permissions": [
+        "notifications",
+        "http://search.belpost.by/"
+    ]
+}

@@ -1,12 +1,6 @@
 /**
  * Created by azhukouski on 6/16/2014.
  */
-window.BP = {
-    model: {},
-    control: {},
-    tracker: {},
-    utils: {}
-};
 
 $(function () {
     var Main = can.Control.extend({}, {

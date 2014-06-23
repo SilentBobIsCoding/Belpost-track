@@ -50,6 +50,14 @@ a:hover {
     background: url("../images/add.png") center no-repeat !important;
 }
 
+.submit-parcel {
+    background: url("../images/ok.png") center no-repeat !important;
+}
+
+.cancel-parcel {
+    background: url("../images/cancel.png") center no-repeat !important;
+}
+
 .editor-panel{
     margin-top: 5px;
     /*padding: 5px;*/

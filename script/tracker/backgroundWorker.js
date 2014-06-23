@@ -1,12 +1,18 @@
-var BackgroundWorker = function() {
-    this.tracker = new Tracker();
-};
-
-BackgroundWorker.prototype = {
+BP.tracker.BackgroundWorker = can.Construct.extend({}, {
     pingInterval: 1,    // hours
-    tracker: null,
+    service: null,
     notificationId: 'background',
     taskId: null,
+    parcels: null,
+
+    init: function () {
+        var that = this;
+        this.model = BP.model.Parcel;
+        this.model.findAll({}, function (parcels) {
+            that.parcels = parcels;
+            that.start();
+        });
+    },
 
     strings: {
         popupTitle: 'You have an update',
@@ -16,8 +22,8 @@ BackgroundWorker.prototype = {
     start: function() {
         this.stop();
         var interval = this.pingInterval * 1000 * 60 * 60;  // covert to hours
-        this.taskId = setInterval($.proxy(this.checkUpdates, this), interval);
-        this.checkUpdates();
+        this.taskId = setInterval($.proxy(this.refreshAll, this), interval);
+        this.refreshAll().then($.proxy(this.onUpdateFinished, this));
     },
 
     stop: function() {
@@ -27,13 +33,9 @@ BackgroundWorker.prototype = {
         }
     },
 
-    checkUpdates: function() {
-        this.tracker.updateAll(this.onUpdateFinished, this);
-    },
-
-    onUpdateFinished: function(tracks) {
-        var updated = tracks.filter(function(track) {
-            return track.statusUpdated;
+    onUpdateFinished: function() {
+        var updated = this.parcels.filter(function(parcel) {
+            return parcel.attr('statusUpdated');
         });
 
         if (updated.length !== 0) {
@@ -41,12 +43,13 @@ BackgroundWorker.prototype = {
         }
     },
 
-    showUpdateNotification: function(tracks) {
-        var list = tracks.map(function(track) {
-            return {
-                title: track.description,
-                message: track.recentEvent.eventName
-            };
+    showUpdateNotification: function(parcels) {
+        var list = [];
+        parcels.each(function(parcel) {
+            list.push({
+                title: parcel.attr('description'),
+                message: parcel.attr('recentEvent').eventName
+            });
         });
 
         var strings = this.strings;
@@ -62,8 +65,49 @@ BackgroundWorker.prototype = {
         chrome.notifications.create(this.notificationId, params, this.emptyFn);
     },
 
+    refreshAll: function () {
+        var deferred = new can.Deferred();
+        var counter = this.parcels.length;
+
+        this.parcels.each(function (parcel) {
+            BP.model.Parcel.service.getTrackingData(
+                parcel.attr('number'),
+                function (errorCode, data) {
+                    counter--;
+                    if (errorCode !== BP.tracker.TrackingService.ERROR_CODES.success) {
+                        return;
+                    }
+
+                    var events = data.insideTrack || data.outsideTrack;
+                    var recentEvent, oldEvent;
+                    if (events && events.length) {
+                        recentEvent = events[events.length - 1];
+                        oldEvent = parcel.attr('recentEvent');
+                        if (!oldEvent || (oldEvent.eventName !== recentEvent.eventName || oldEvent.location !== recentEvent.location)) {
+                            parcel.attr('recentEvent', recentEvent);
+                            parcel.attr('statusUpdated', true);
+                            parcel.save();
+                        } else {
+                            parcel.attr('statusUpdated', false);
+                        }
+                    }
+                    if (counter === 0) {
+                        deferred.resolve();
+                    }
+                },
+                this
+            );
+        });
+
+        return deferred;
+    },
+
     onNotificationClick: function(id) {
     },
 
     emptyFn: function() {}
-};
+}, {});
+
+$(function () {
+    (new BP.tracker.BackgroundWorker());
+});

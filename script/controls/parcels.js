@@ -30,7 +30,6 @@ BP.control.Parcels = can.Control.extend({}, {
     deleteParcel: function (parcel) {
         parcel.destroy();
     },
-
     refreshAll: function () {
         var deferred = new can.Deferred();
         var counter = this.parcels.length;
@@ -47,7 +46,7 @@ BP.control.Parcels = can.Control.extend({}, {
 
                     var events = data.insideTrack || data.outsideTrack;
                     var recentEvent;
-                    if (events.length) {
+                    if (events && events.length) {
                         recentEvent = events[events.length - 1];
                         parcel.attr('recentEvent', recentEvent);
                         parcel.save();
