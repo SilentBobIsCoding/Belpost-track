@@ -6,8 +6,6 @@ body {
 
 a {
     text-decoration: none;
-    color: #1f1b7f;
-    font-weight: bold;
 }
 
 a:hover {
@@ -98,7 +96,7 @@ a:hover {
     border-radius: 5px;
     height: 50px;
     position: relative;
-    margin: 3px;
+    margin: 3px 0;
     padding-right: 20px;
     overflow: hidden;
     -webkit-transition: all .1s ease-in-out;
@@ -117,10 +115,13 @@ a:hover {
 }
 
 .item-number {
-    /*display: none;*/
+    color: #1f1b7f;
+    /*font-weight: bold;*/
 }
 
 .item-description {
+    font-weight: bold;
+    color: #1f1b7f;
 }
 
 .item-actions {
@@ -128,9 +129,10 @@ a:hover {
     width: 1px;
     padding: 5px;
     float: right;
-    border: 1px solid #ffa453;
+    border: 1px solid;
     border-radius: 5px;
-    background-color: #ffb278;
+    border-color: #c8d7d7;
+    background-color: #d6e5e5;
     position: absolute;
     right: 5px;
     top: 5px;
@@ -143,6 +145,11 @@ a:hover {
 
 .item-actions:hover {
     width: 85px;
+}
+
+.item:hover .item-actions {
+    border-color: #ffa453;
+    background-color: #ffb278;
 }
 
 .item-actions:hover .item-action {

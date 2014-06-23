@@ -1,8 +1,16 @@
-<div  {{data 'parcel'}} class="item {{status}}" id="item_{{id}}">
+<div {{data 'parcel'}} class="item">
     <div>
-        <span class="item-description">{{description}}</span>
         <a href="http://search.belpost.by/#{{number}}" target="_blank" class="item-number">{{number}}</a>
-        <div class="recent-event">{{dateFormatter recentEvent.date}} : {{recentEvent.eventName}} - {{recentEvent.location}}</div>
+        <span class="item-description">{{description}}</span>
+        <div class="recent-event">
+            {{#recentEvent}}
+                [{{dateFormatter recentEvent.date}}] {{recentEvent.eventName}} {{recentEvent.location}}
+            {{/recentEvent}}
+
+            {{^recentEvent}}
+                No data available
+            {{/recentEvent}}
+        </div>
     </div>
     <div class="item-actions">
         <div class="item-action action-edit">&nbsp;</div>
