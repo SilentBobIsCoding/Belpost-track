@@ -14,7 +14,7 @@ a:hover {
     text-decoration: underline;
 }
 
-#toolbar {
+.toolbar {
     padding: 5px;
     background-color: #d6e5e5;
     /*height: 24px;*/
@@ -23,7 +23,7 @@ a:hover {
     border-radius: 5px;
 }
 
-#toolbar .toolbar-buttons {
+.toolbar .toolbar-buttons {
     display: inline-block;
 }
 
