@@ -1,4 +1,4 @@
-<div {{data 'parcel'}} class="item">
+<div {{data 'parcel'}} class="item {{#isUpdated}}status-updated{{/isUpdated}}">
     <div>
         <a href="http://search.belpost.by/#{{number}}" target="_blank" class="item-number">{{number}}</a>
         <span class="item-description">{{description}}</span>

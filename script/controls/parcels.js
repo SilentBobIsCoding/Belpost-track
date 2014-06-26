@@ -13,7 +13,7 @@ BP.control.Parcels = can.Control.extend({}, {
         });
 
     },
-    '.item-action click': function (el) {
+    '.item-action click': function (el, e) {
         var parcel = el.parents('div.item').data('parcel');
         var action;
         if (el.hasClass('action-delete')) {
@@ -21,44 +21,27 @@ BP.control.Parcels = can.Control.extend({}, {
         } else if (el.hasClass('action-edit')) {
             this.element.trigger('update', parcel);
         }
+        e.stopImmediatePropagation();
     },
+    '.item click': function (el) {
+        var parcel = el.data('parcel');
+        if (!parcel) {
+            return;
+        }
 
+        parcel.attr('isUpdated', false);
+        parcel.save();
+
+        var updated = this.parcels.getUpdated();
+        BP.utils.updateMainIcon(updated);
+    },
     addParcel: function (parcel) {
         this.parcels.push(parcel);
     },
-
     deleteParcel: function (parcel) {
         parcel.destroy();
     },
     refreshAll: function () {
-        var deferred = new can.Deferred();
-        var counter = this.parcels.length;
-
-        this.parcels.each(function (parcel) {
-            BP.model.Parcel.service.getTrackingData(
-                parcel.attr('number'),
-                function (errorCode, data) {
-                    counter--;
-                    if (errorCode !== BP.tracker.TrackingService.ERROR_CODES.success) {
-                        return;
-                    }
-
-
-                    var events = data.insideTrack || data.outsideTrack;
-                    var recentEvent;
-                    if (events && events.length) {
-                        recentEvent = events[events.length - 1];
-                        parcel.attr('recentEvent', recentEvent);
-                        parcel.save();
-                    }
-                    if (counter === 0) {
-                        deferred.resolve();
-                    }
-                },
-                this
-            );
-        });
-
-        return deferred;
+        return this.parcels.refreshAll();
     }
 });

@@ -10,3 +10,38 @@ BP.utils.dateFormatter = function (date) {
 
     return res;
 };
+
+BP.utils.updateMainIcon = function (parcels) {
+    if (parcels && parcels.length) {
+        chrome.browserAction.setBadgeBackgroundColor({color: [190, 190, 190, 230]});
+        chrome.browserAction.setBadgeText({text: parcels.length + ''});
+    } else {
+        chrome.browserAction.setBadgeText({text: ''});
+    }
+//    chrome.browserAction.setIcon({path: 'images/icon_color.png'});
+};
+
+BP.utils.dateFormatter.showUpdateNotification = function(parcels) {
+    var list = [];
+    parcels.each(function(parcel) {
+        list.push({
+            title: parcel.attr('description'),
+            message: parcel.attr('recentEvent').eventName
+        });
+    });
+
+    var strings = {
+        popupTitle: 'You have an update!',
+        popupMessage: 'Following items were updated:'
+    };
+
+    var params = {
+        type: 'list',
+        iconUrl: ' images/icon_big.png',
+        title: strings.popupTitle,
+        message: strings.popupMessage,
+        items: list
+    };
+
+    chrome.notifications.create('belpostNotification', params, function() {});
+};

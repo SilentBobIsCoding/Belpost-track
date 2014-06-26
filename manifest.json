@@ -16,6 +16,7 @@
             "script/utils.js",
             "script/tracker/trackingService.js",
             "script/models/parcel.js",
+            "script/modelList/parcelList.js",
             "script/tracker/backgroundWorker.js"
         ]
     },

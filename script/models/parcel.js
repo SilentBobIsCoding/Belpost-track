@@ -22,6 +22,7 @@ BP.model.Parcel = can.Model.extend({
             existing.number = parcel.number;
             existing.description = parcel.description;
             existing.recentEvent = parcel.recentEvent;
+            existing.isUpdated = parcel.isUpdated;
             this._sync();
         }
 
