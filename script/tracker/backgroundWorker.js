@@ -7,6 +7,7 @@ BP.tracker.BackgroundWorker = can.Construct.extend({}, {
     init: function () {
         this.model = BP.model.Parcel;
         this.start();
+        var a;
     },
 
     start: function() {
