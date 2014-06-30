@@ -5,17 +5,13 @@ BP.tracker.BackgroundWorker = can.Construct.extend({}, {
     parcels: null,
 
     init: function () {
-        var that = this;
         this.model = BP.model.Parcel;
-        this.model.findAll({}, function (parcels) {
-            that.parcels = parcels;
-            that.start();
-        });
+        this.start();
     },
 
     start: function() {
         this.stop();
-        var interval = this.pingInterval * 1000 * 60 * 60;  // covert to hours
+        var interval = this.pingInterval * 1000 * 30;  // covert to hours
         this.taskId = setInterval($.proxy(this.refreshAll, this), interval);
         this.refreshAll();
     },
@@ -36,10 +32,16 @@ BP.tracker.BackgroundWorker = can.Construct.extend({}, {
     },
 
     refreshAll: function () {
-        this.parcels.refreshAll().then($.proxy(this.onUpdateFinished, this));
+        var that = this;
+
+        this.model.findAll({}, function (parcels) {
+            that.parcels = parcels;
+            that.parcels.refreshAll().then($.proxy(that.onUpdateFinished, that));
+        });
     },
 
     onNotificationClick: function(id) {
+
     }
 
 }, {});

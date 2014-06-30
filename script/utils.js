@@ -43,5 +43,5 @@ BP.utils.dateFormatter.showUpdateNotification = function(parcels) {
         items: list
     };
 
-    chrome.notifications.create('belpostNotification', params, function() {});
+    chrome.notifications.create('belpostNotification', params, function() { });
 };

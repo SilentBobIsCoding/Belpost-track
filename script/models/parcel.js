@@ -11,7 +11,7 @@ BP.model.Parcel = can.Model.extend({
     },
     create: function (parcel) {
         parcel.id = this._getId();
-        this._getParcels().push(parcel);
+        this._data.push(parcel);
         this._sync();
 
         return $.Deferred().resolve({id: parcel.id});
@@ -30,7 +30,7 @@ BP.model.Parcel = can.Model.extend({
     },
     destroy: function (id) {
         var parcel = this._getParcelById(id);
-        var all = this._getParcels();
+        var all = this._data;
         var index = all.indexOf(parcel);
         all.splice(index, 1);
         this._sync();
@@ -40,19 +40,17 @@ BP.model.Parcel = can.Model.extend({
     service: null,
     _data: null,
     _getParcels: function () {
-        if (!this._data) {
-            var items = localStorage['tracks'];
-            this._data = items ? JSON.parse(items) : [];
-            this._data.forEach(function (parcel) {
-                if (parcel.recentEvent) {
-                    parcel.recentEvent.date = new Date(parcel.recentEvent.date);
-                }
-            });
-        }
+        var items = localStorage['tracks'];
+        this._data = items ? JSON.parse(items) : [];
+        this._data.forEach(function (parcel) {
+            if (parcel.recentEvent) {
+                parcel.recentEvent.date = new Date(parcel.recentEvent.date);
+            }
+        });
         return this._data;
     },
     _getParcelById: function (id) {
-        var all = this._getParcels();
+        var all = this._data;
         var parcel;
         for (var i = all.length; i--;) {
             if (all[i].id === id) {
@@ -63,10 +61,10 @@ BP.model.Parcel = can.Model.extend({
         return parcel;
     },
     _sync: function () {
-        localStorage['tracks'] = JSON.stringify(this._getParcels());
+        localStorage['tracks'] = JSON.stringify(this._data);
     },
     _getId: function () {
-        var all = this._getParcels();
+        var all = this._data;
         return (all.length ? all[all.length - 1].id : 0) + 1;
     }
 }, {
