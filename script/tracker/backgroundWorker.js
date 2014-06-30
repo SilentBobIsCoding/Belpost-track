@@ -11,7 +11,7 @@ BP.tracker.BackgroundWorker = can.Construct.extend({}, {
 
     start: function() {
         this.stop();
-        var interval = this.pingInterval * 1000 * 30;  // covert to hours
+        var interval = this.pingInterval * 1000 * 60 * 60;  // covert to hours
         this.taskId = setInterval($.proxy(this.refreshAll, this), interval);
         this.refreshAll();
     },
