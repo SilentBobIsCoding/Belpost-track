@@ -6,8 +6,7 @@
 BP.tracker.TrackingService = can.Construct.extend({
     ERROR_CODES: {
         success: 0,
-        failure: 1,
-        test: 2
+        failure: 1
     },
     searchMode: {
         local: 1,   // inside country tracking
