@@ -3,7 +3,7 @@
 
     "name": "Belpost tracking",
     "description": "Tracks orders using Belpost web service",
-    "version": "1.2",
+    "version": "1.2.1",
     "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
 
     "background" : {
@@ -28,6 +28,9 @@
 
     "permissions": [
         "notifications",
+        "storage",
         "http://search.belpost.by/"
-    ]
+    ],
+
+    "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAyDwro3Z6bDTvafBy0ygYZyaCqXfFn5koLdsop/LY4ufxg/nYr5n4K838r5rfCi70npSe53k4gBcN8sJEfurAL2IqdoZZ098u1Wi5YVR6JhDLAMcO9gFUuIe56eQ/g1vuqXjXhcztP94sBDu1QToVfaGIh+UdwSPXfzpvgws7iepGJMMRDU1Ukkeb8Qc/1evFU6UQepIczwMSfmRJEzSnog2yNM+5z05wagSzeVaN6pvjkJ/m9kZcGiUR4pI8qusWmS3P1WmqZeh2wrn9qysahOp39g21RqCI7A8UP4MbKk1EW0Uv2VFddh9abpP9ZG7BIpQU5hzn2YyW7iIfPw9zzwIDAQAB"
 }

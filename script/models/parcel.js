@@ -3,7 +3,12 @@ BP.model.Parcel = can.Model.extend({
         this.service = new BP.tracker.TrackingService();
     },
     findAll: function () {
-        return $.Deferred().resolve(this._getParcels());
+        var deferred = $.Deferred();
+        this._getParcels(function (items) {
+            deferred.resolve(items);
+        });
+
+        return deferred;
     },
     findOne: function (params) {
         var id = params ? params.id : undefined;
@@ -39,15 +44,18 @@ BP.model.Parcel = can.Model.extend({
     },
     service: null,
     _data: null,
-    _getParcels: function () {
-        var items = localStorage['tracks'];
-        this._data = items ? JSON.parse(items) : [];
-        this._data.forEach(function (parcel) {
-            if (parcel.recentEvent) {
-                parcel.recentEvent.date = new Date(parcel.recentEvent.date);
-            }
-        });
-        return this._data;
+    _getParcels: function (cb) {
+//        var items = localStorage['tracks'];
+        var items = chrome.storage.sync.get('tracks', can.proxy(function (storeData) {
+            this._data = storeData.tracks ? JSON.parse(storeData.tracks) : [];
+            this._data.forEach(function (parcel) {
+                if (parcel.recentEvent) {
+                    parcel.recentEvent.date = new Date(parcel.recentEvent.date);
+                }
+            });
+
+            cb.call(this, this._data);
+        }, this));
     },
     _getParcelById: function (id) {
         var all = this._data;
@@ -61,7 +69,10 @@ BP.model.Parcel = can.Model.extend({
         return parcel;
     },
     _sync: function () {
-        localStorage['tracks'] = JSON.stringify(this._data);
+//        localStorage['tracks'] = JSON.stringify(this._data);
+        chrome.storage.sync.set({'tracks': JSON.stringify(this._data)}, function () {
+            chrome.runtime.lastError;
+        });
     },
     _getId: function () {
         var all = this._data;
@@ -71,4 +82,5 @@ BP.model.Parcel = can.Model.extend({
     isValid: function () {
         return !!(this.attr('number') && this.attr('description'));
     }
+    // RS132993305NL VV046009235BY
 });

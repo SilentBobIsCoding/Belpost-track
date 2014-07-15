@@ -16,6 +16,9 @@ BP.control.Parcels = can.Control.extend({}, {
     '.item-action click': function (el, e) {
         var parcel = el.parents('div.item').data('parcel');
         var action;
+
+        this._markParcelViewed(parcel);
+
         if (el.hasClass('action-delete')) {
             this.deleteParcel(parcel);
         } else if (el.hasClass('action-edit')) {
@@ -25,15 +28,7 @@ BP.control.Parcels = can.Control.extend({}, {
     },
     '.item click': function (el) {
         var parcel = el.data('parcel');
-        if (!parcel) {
-            return;
-        }
-
-        parcel.attr('isUpdated', false);
-        parcel.save();
-
-        var updated = this.parcels.getUpdated();
-        BP.utils.updateMainIcon(updated);
+        this._markParcelViewed(parcel);
     },
     addParcel: function (parcel) {
         this.parcels.push(parcel);
@@ -43,5 +38,16 @@ BP.control.Parcels = can.Control.extend({}, {
     },
     refreshAll: function () {
         return this.parcels.refreshAll();
+    },
+    _markParcelViewed: function (parcel) {
+        if (!parcel) {
+            return;
+        }
+
+        parcel.attr('isUpdated', false);
+        parcel.save();
+
+        var updated = this.parcels.getUpdated();
+        BP.utils.updateMainIcon(updated);
     }
 });
