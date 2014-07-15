@@ -1,4 +1,4 @@
 Belpost-track
 =============
 
-Belpost tracking plugin for Google Chrome
+Belpost tracking extension for Google Chrome
