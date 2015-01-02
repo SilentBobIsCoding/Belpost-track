@@ -26,7 +26,7 @@ BP.tracker.BackgroundWorker = can.Construct.extend({}, {
     onUpdateFinished: function() {
         var updated = this.parcels.getUpdated();
         if (updated.length !== 0) {
-            BP.utils.dateFormatter.showUpdateNotification(updated);
+            //BP.utils.showUpdateNotification(updated);
             BP.utils.updateMainIcon(updated);
         }
     },
@@ -38,12 +38,7 @@ BP.tracker.BackgroundWorker = can.Construct.extend({}, {
             that.parcels = parcels;
             that.parcels.refreshAll().then($.proxy(that.onUpdateFinished, that));
         });
-    },
-
-    onNotificationClick: function(id) {
-
     }
-
 }, {});
 
 $(function () {

@@ -21,7 +21,7 @@ BP.utils.updateMainIcon = function (parcels) {
 //    chrome.browserAction.setIcon({path: 'images/icon_color.png'});
 };
 
-BP.utils.dateFormatter.showUpdateNotification = function(parcels) {
+BP.utils.showUpdateNotification = function(parcels) {
     var list = [];
     parcels.each(function(parcel) {
         list.push({
