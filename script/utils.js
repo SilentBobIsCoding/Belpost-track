@@ -45,3 +45,23 @@ BP.utils.showUpdateNotification = function(parcels) {
 
     chrome.notifications.create('belpostNotification', params, function() { });
 };
+
+BP.utils.stub = function () {
+    chrome.storage = {
+        sync: {
+            get: function (key, cb) {
+                var data = localStorage[key];
+                cb(data ? { tracks: data } : null);
+            },
+            set: function (data, cb) {
+                can.each(data, function (val, key) {
+                    localStorage[key] = val;
+                });
+
+                cb();
+            }
+        }
+    };
+};
+
+// BP.utils.stub(); Uncomment to debug in Chrome

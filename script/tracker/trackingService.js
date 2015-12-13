@@ -7,20 +7,17 @@ BP.tracker.TrackingService = can.Construct.extend({
     ERROR_CODES: {
         success: 0,
         failure: 1
-    },
-    searchMode: {
-        local: 1,   // inside country tracking
-        global: 2   // world wide tracking
     }
 }, {
-    serviceUrl: 'http://search.belpost.by/ajax/search',
+    serviceUrl: 'http://declaration.belpost.by/searchRu.aspx?search=',
 
 
     getRequestParams: function(cfg) {
-        return {
-            internal: cfg.searchMode || BP.tracker.TrackingService.searchMode.global,
-            item: cfg.trackNumber
-        };
+        return null;
+    },
+
+    getRequestUrl: function (trackNumber) {
+        return this.serviceUrl + trackNumber;
     },
 
     request: function(cfg) {
@@ -29,8 +26,8 @@ BP.tracker.TrackingService = can.Construct.extend({
         }
 
         $.ajax({
-            url: this.serviceUrl,
             type: 'POST',
+            url: this.getRequestUrl(cfg.trackNumber),
             data: this.getRequestParams(cfg),
             success: function(data, status, xhr) {
                 if (cfg.callback) {
@@ -67,14 +64,15 @@ BP.tracker.TrackingService = can.Construct.extend({
     },
 
     processResponse: function(response) {
-        if (!response) {
+        if (response) {
+            response = response.replace(/script/gi, 'div');
+        } else {
             return null;
         }
 
-        $(document.body).append('<div id="tmptable" style="display: none;"></div>');
+        $(document.body).append('<div id="tmptable" style="display: none; position: absolute;"/></div>');
         var el = $('#tmptable').html(response);
-
-        var tables = el.children('table') || [];
+        var tables = el.find('table') || [];
         var outsideTrack = this.parseTableEl(tables[0]);
         var insideTrack = this.parseTableEl(tables[1]);
 
@@ -95,11 +93,13 @@ BP.tracker.TrackingService = can.Construct.extend({
         var rows = $('tr', table), result = [];
         $.each(rows, function(index, row) {
             var cells = $('td', row);
+            if (!cells.length) {
+                return;
+            }
+
             var data = cells.map(function(i, cell) {
                 return cell.innerText;
             });
-
-
             var dateArray = data[0].split(space);
             if (dateArray[0].indexOf('.') !== -1) {
                 dateArray[0] = dateArray[0].split('.').reverse().join('-');
