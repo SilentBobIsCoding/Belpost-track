@@ -9,8 +9,7 @@ BP.tracker.TrackingService = can.Construct.extend({
         failure: 1
     }
 }, {
-    serviceUrl: 'http://declaration.belpost.by/searchRu.aspx?search=',
-
+    serviceUrl: 'http://webservices.belpost.by/searchRu.aspx?search=',
 
     getRequestParams: function(cfg) {
         return null;

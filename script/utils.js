@@ -51,7 +51,7 @@ BP.utils.stub = function () {
         sync: {
             get: function (key, cb) {
                 var data = localStorage[key];
-                cb(data ? { tracks: data } : null);
+                cb(data ? { tracks: data } : {});
             },
             set: function (data, cb) {
                 can.each(data, function (val, key) {
@@ -62,6 +62,10 @@ BP.utils.stub = function () {
             }
         }
     };
+
+    chrome.browserAction = {
+        setBadgeText: function() {}
+    };
 };
 
-// BP.utils.stub(); Uncomment to debug in Chrome
+//BP.utils.stub(); //Uncomment to debug in Chrome
