@@ -12,7 +12,7 @@ BP.model.Parcel.List = BP.model.Parcel.List.extend({}, {
                         return;
                     }
 
-                    var events = data.insideTrack || data.outsideTrack;
+                    var events = data.outsideTrack;
                     var recentEvent, oldEvent;
                     if (events && events.length) {
                         recentEvent = events[events.length - 1];

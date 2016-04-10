@@ -73,13 +73,11 @@ BP.tracker.TrackingService = can.Construct.extend({
         var el = $('#tmptable').html(response);
         var tables = el.find('table') || [];
         var outsideTrack = this.parseTableEl(tables[0]);
-        var insideTrack = this.parseTableEl(tables[1]);
 
         el.remove();
 
         return {
-            outsideTrack: outsideTrack,
-            insideTrack: insideTrack
+            outsideTrack: outsideTrack
         };
     },
 
@@ -97,7 +95,7 @@ BP.tracker.TrackingService = can.Construct.extend({
             }
 
             var data = cells.map(function(i, cell) {
-                return cell.innerText;
+                return cell.innerText.trim();
             });
             var dateArray = data[0].split(space);
             if (dateArray[0].indexOf('.') !== -1) {
